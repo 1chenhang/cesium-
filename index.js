@@ -853,7 +853,7 @@
         SceneMode = Cesium.SceneMode,
         ShaderProgram = Cesium.ShaderProgram,
         ShaderSource = Cesium.ShaderSource;
-    var SkyBoxFS = "uniform samplerCube u_cubeMap;\n\
+    const SkyBoxFS = "uniform samplerCube u_cubeMap;\n\
             in vec3 v_texCoord;\n\
             void main()\n\
             {\n\
@@ -861,7 +861,7 @@
             out_FragColor = vec4(czm_gammaCorrect(color).rgb, czm_morphTime);\n\
             }\n\
             ";
-    var SkyBoxVS = "in vec3 position;\n\
+    const SkyBoxVS = "in vec3 position;\n\
             out vec3 v_texCoord;\n\
             uniform mat3 u_rotateMatrix;\n\
             void main()\n\
@@ -895,9 +895,9 @@
 
 
     }
-    var skyboxMatrix3 = new Matrix3();
+    const skyboxMatrix3 = new Matrix3();
     SkyBox.prototype.update = function (frameState, useHdr) {
-        var that = this;
+        const that = this;
 
         if (!this.show) {
             return undefined;
@@ -912,11 +912,11 @@
             return undefined;
         }
 
-        var context = frameState.context;
+        const context = frameState.context;
 
         if (this._sources !== this.sources) {
             this._sources = this.sources;
-            var sources = this.sources;
+            const sources = this.sources;
 
             if ((!defined(sources.positiveX)) ||
                 (!defined(sources.negativeX)) ||
@@ -950,7 +950,7 @@
             }
         }
 
-        var command = this._command;
+        const command = this._command;
         command.modelMatrix = Transforms.eastNorthUpToFixedFrame(frameState.camera._positionWC);
         if (!defined(command.vertexArray)) {
             let rotate = 0;
@@ -967,11 +967,11 @@
                 },
             };
 
-            var geometry = BoxGeometry.createGeometry(BoxGeometry.fromDimensions({
+            const geometry = BoxGeometry.createGeometry(BoxGeometry.fromDimensions({
                 dimensions: new Cartesian3(2.0, 2.0, 2.0),
                 vertexFormat: VertexFormat.POSITION_ONLY
             }));
-            var attributeLocations = this._attributeLocations = GeometryPipeline.createAttributeLocations(geometry);
+            const attributeLocations = this._attributeLocations = GeometryPipeline.createAttributeLocations(geometry);
 
             command.vertexArray = VertexArray.fromGeometry({
                 context: context,
@@ -986,7 +986,7 @@
         }
 
         if (!defined(command.shaderProgram) || this._useHdr !== useHdr) {
-            var fs = new ShaderSource({
+            const fs = new ShaderSource({
                 defines: [useHdr ? 'HDR' : ''],
                 sources: [SkyBoxFS]
             });
@@ -1009,7 +1009,7 @@
         return false
     };
     SkyBox.prototype.destroy = function () {
-        var command = this._command;
+        const command = this._command;
         command.vertexArray = command.vertexArray && command.vertexArray.destroy();
         command.shaderProgram = command.shaderProgram && command.shaderProgram.destroy();
         this._cubeMap = this._cubeMap && this._cubeMap.destroy();
