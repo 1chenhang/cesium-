@@ -118,7 +118,7 @@
         const initTiles = async () => {
             // 白膜建筑
             building = await Cesium.Cesium3DTileset.fromUrl(
-                "./Static/Data/gz/tileset.json", {
+                "./Static/data/gz/tileset.json", {
                 customShader: new Cesium.CustomShader({
                     uniforms: {
                         u_envTexture: {
@@ -263,7 +263,7 @@
 
             // 白膜建筑线框渲染
             building2 = await Cesium.Cesium3DTileset.fromUrl(
-                "./Static/Data/gz/tileset.json", {
+                "./Static/data/gz/tileset.json", {
                 debugWireframe: true,
                 enableDebugWireframe: true,
                 customShader: new Cesium.CustomShader({
@@ -304,7 +304,7 @@
 
             // 广州塔模型
             model0 = await Cesium.Cesium3DTileset.fromUrl(
-                "./Static/Data/gzt/tileset.json", {
+                "./Static/data/gzt/tileset.json", {
                 customShader: new Cesium.CustomShader({
                     uniforms: {
                         u_build0: {
@@ -481,7 +481,7 @@
                 })
             })
             const instances = [];
-            const promise = Cesium.GeoJsonDataSource.load('./Static/Data/guangzhou.geojson');
+            const promise = Cesium.GeoJsonDataSource.load('./Static/data/guangzhou.geojson');
             promise.then((dataSource) => {
                 const entities = dataSource.entities.values;
                 for (let i = 0; i < entities.length; i++) {
