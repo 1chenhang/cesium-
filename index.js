@@ -10,7 +10,7 @@
     let building2
     let model0;
     let road;
-    let isPlay = true;
+    let isPlay = false;
     let waterPrimitive;
     /**
      * 初始化viewer
@@ -69,25 +69,25 @@
         });
 
         // 场景设置
-        viewer.scene.highDynamicRange = true;
-        viewer.scene.postProcessStages.bloom.enabled = true;
-        viewer.scene.postProcessStages.bloom.uniforms.contrast = 255
-        viewer.scene.postProcessStages.bloom.uniforms.brightness = 0.05
-        viewer.scene.postProcessStages.bloom.uniforms.glowOnly = false
-        viewer.scene.postProcessStages.bloom.uniforms.delta = 1.1
-        viewer.scene.postProcessStages.bloom.uniforms.sigma = 5
-        viewer.scene.postProcessStages.bloom.uniforms.stepSize = 0.6
-        viewer.scene.postProcessStages.bloom.uniforms.isSelected = false
-        viewer.scene.postProcessStages.bloom.uniforms.selectedBloom = 10
-        viewer.scene.postProcessStages.bloom.uniforms.bloomColor = Cesium.Color.fromCssColorString("#fafafa");
-        viewer.scene.sun.show = false;
-        viewer.scene.moon.show = false;
-        viewer.scene.undergroundMode = false;
-        viewer.scene.terrainProvider.isCreateSkirt = false;
-        viewer.scene.skyAtmosphere.show = false;
-        viewer.scene.globe.showGroundAtmosphere = false
-        viewer.scene.globe.enableLighting = false
-        viewer.scene.fog.enabled = false
+        // viewer.scene.highDynamicRange = true;
+        // viewer.scene.postProcessStages.bloom.enabled = true;
+        // viewer.scene.postProcessStages.bloom.uniforms.contrast = 255
+        // viewer.scene.postProcessStages.bloom.uniforms.brightness = 0.05
+        // viewer.scene.postProcessStages.bloom.uniforms.glowOnly = false
+        // viewer.scene.postProcessStages.bloom.uniforms.delta = 1.1
+        // viewer.scene.postProcessStages.bloom.uniforms.sigma = 5
+        // viewer.scene.postProcessStages.bloom.uniforms.stepSize = 0.6
+        // viewer.scene.postProcessStages.bloom.uniforms.isSelected = false
+        // viewer.scene.postProcessStages.bloom.uniforms.selectedBloom = 10
+        // viewer.scene.postProcessStages.bloom.uniforms.bloomColor = Cesium.Color.fromCssColorString("#fafafa");
+        // viewer.scene.sun.show = false;
+        // viewer.scene.moon.show = false;
+        // viewer.scene.undergroundMode = false;
+        // viewer.scene.terrainProvider.isCreateSkirt = false;
+        // viewer.scene.skyAtmosphere.show = false;
+        // viewer.scene.globe.showGroundAtmosphere = false
+        // viewer.scene.globe.enableLighting = false
+        // viewer.scene.fog.enabled = false
         // viewer.scene.screenSpaceCameraController.minimumZoomDistance = 0;
         // viewer.scene.screenSpaceCameraController.maximumZoomDistance = 50000;
         viewer.clock.currentTime = Cesium.JulianDate.fromIso8601("2024-01-15T14:00:00Z");
@@ -339,7 +339,7 @@
                 }),
                 maximumScreenSpaceError: 2,
             })
-            viewer.scene.primitives.add(model0);
+            // viewer.scene.primitives.add(model0);
             model0.root.transform = generateModelMatrix([113.31914084147262, 23.10896926740387, 0], [0, 0, 0], [2, 2, 2])
         }
 
@@ -513,7 +513,7 @@
 
             let particleCanvas;
 
-            function getImage() {
+            function getImage () {
                 if (!Cesium.defined(particleCanvas)) {
                     particleCanvas = document.createElement("canvas");
                     particleCanvas.width = 20;
@@ -537,7 +537,7 @@
 
             const emitterModelMatrixScratch = new Cesium.Matrix4();
 
-            function createFirework(offset, color, bursts) {
+            function createFirework (offset, color, bursts) {
                 const position = Cesium.Cartesian3.add(
                     emitterInitialLocation,
                     offset,
@@ -667,7 +667,7 @@
 
         await initRoad();
 
-        await initFireWorks();
+        // await initFireWorks();
 
     }
 
@@ -675,7 +675,6 @@
      * 初始化场景事件
      */
     const initEvent = async () => {
-
         let step = 20;
         let step2 = 1;
         let _date = viewer.clock.currentTime,
@@ -726,7 +725,7 @@
         })
 
         let gui = new dat.GUI();
-        gui.add({ play: true }, "play").name("自动切换").onChange(function (value) {
+        gui.add({ play: false }, "play").name("自动切换").onChange(function (value) {
             isPlay = value;
         })
         gui.add({ lerp: -100 }, "lerp", -100, 800, 1).name("外观过渡").onChange(function (value) {
@@ -782,8 +781,7 @@
         //     viewer.scene.postProcessStages.bloom.uniforms.bloomColor = Cesium.Color.fromCssColorString(value);
         // })
 
-        // 延迟2s加载数据 gitee网速较慢
-        setTimeout(() => closeLoading(), 2000);
+
     }
 
 
@@ -820,6 +818,9 @@
         await initViewer();
         await initScene();
         await initEvent();
+        // 延迟2s加载数据 gitee网速较慢
+        closeLoading()
+        // setTimeout(() => , 2000);
     };
 
 
@@ -871,7 +872,7 @@
             v_texCoord = position.xyz;\n\
             }\n\
             ";
-    function SkyBox(options) {
+    function SkyBox (options) {
 
         this.sources = options.sources;
         this._sources = undefined;
@@ -1033,7 +1034,7 @@
          * @param lat
          * @returns {number[]}
          */
-        static BD09ToGCJ02(lng, lat) {
+        static BD09ToGCJ02 (lng, lat) {
             let x = +lng - 0.0065
             let y = +lat - 0.006
             let z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * BD_FACTOR)
@@ -1050,7 +1051,7 @@
          * @returns {number[]}
          * @constructor
          */
-        static GCJ02ToBD09(lng, lat) {
+        static GCJ02ToBD09 (lng, lat) {
             lat = +lat
             lng = +lng
             let z =
@@ -1067,7 +1068,7 @@
          * @param lat
          * @returns {number[]}
          */
-        static WGS84ToGCJ02(lng, lat) {
+        static WGS84ToGCJ02 (lng, lat) {
             lat = +lat
             lng = +lng
             if (this.out_of_china(lng, lat)) {
@@ -1085,7 +1086,7 @@
          * @returns {number[]}
          * @constructor
          */
-        static GCJ02ToWGS84(lng, lat) {
+        static GCJ02ToWGS84 (lng, lat) {
             lat = +lat
             lng = +lng
             if (this.out_of_china(lng, lat)) {
@@ -1104,7 +1105,7 @@
          * @param lat
          * @returns {number[]}
          */
-        static delta(lng, lat) {
+        static delta (lng, lat) {
             let dLng = this.transformLng(lng - 105, lat - 35)
             let dLat = this.transformLat(lng - 105, lat - 35)
             const radLat = (lat / 180) * PI
@@ -1122,7 +1123,7 @@
          * @param lat
          * @returns {number}
          */
-        static transformLng(lng, lat) {
+        static transformLng (lng, lat) {
             lat = +lat
             lng = +lng
             let ret =
@@ -1153,7 +1154,7 @@
          * @param lat
          * @returns {number}
          */
-        static transformLat(lng, lat) {
+        static transformLat (lng, lat) {
             lat = +lat
             lng = +lng
             let ret =
@@ -1184,7 +1185,7 @@
          * @param lat
          * @returns {boolean}
          */
-        static out_of_china(lng, lat) {
+        static out_of_china (lng, lat) {
             lat = +lat
             lng = +lng
             return !(lng > 73.66 && lng < 135.05 && lat > 3.86 && lat < 53.55)
@@ -1258,7 +1259,7 @@
         }
     }
 
-    function closeLoading() {
+    function closeLoading () {
         document.getElementById("loadingIndicator").style.display = "none";
         document.getElementById("loadingIndicator2").style.display = "none"
     }
